@@ -1,11 +1,24 @@
+using Week2_Assesment.Interfaces;
+using Week2_Assesment.Services;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.EntityFrameworkCore;
+using Week2_Assesment.Validators;
+using Week2_Assessment.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddFluentValidationClientsideAdapters();
+builder.Services.AddValidatorsFromAssemblyContaining<SongValidator>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<ISongService, SongService>();
+builder.Services.AddDbContext<MSSQLDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MSSQLConnectionString")));
 
 var app = builder.Build();
 
