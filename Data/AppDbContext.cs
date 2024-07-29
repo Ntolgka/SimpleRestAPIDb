@@ -11,5 +11,6 @@ public class AppDbContext : Microsoft.EntityFrameworkCore.DbContext
     }
 
     public DbSet<Song> Songs { get; set; }
+    public DbSet<User> Users { get; set; }
     
 }
