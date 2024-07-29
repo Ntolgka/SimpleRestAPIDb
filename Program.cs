@@ -3,12 +3,20 @@ using Week2_Assesment.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using Week2_Assesment.Validators;
 using Week2_Assessment.Data;
+using Week2_Assessment.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+//Serilog config
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Debug()
+    .WriteTo.File("Logs/app.log") 
+    .CreateLogger();
+
+builder.Host.UseSerilog();
 
 builder.Services.AddControllers();
 
@@ -33,6 +41,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<RequestResponseLoggerMiddleware>();
 
 app.UseHttpsRedirection();
 
