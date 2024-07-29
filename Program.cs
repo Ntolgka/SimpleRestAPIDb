@@ -17,8 +17,8 @@ builder.Services.AddValidatorsFromAssemblyContaining<SongValidator>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ISongService, SongService>();
-builder.Services.AddDbContext<MSSQLDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("MSSQLConnectionString")));
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreConnectionString")));
 
 var app = builder.Build();
 

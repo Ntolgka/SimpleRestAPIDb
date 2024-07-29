@@ -7,29 +7,17 @@ namespace Week2_Assesment.Services;
 
 public class SongService : ISongService
 {
-    //private readonly List<Song> songs;
-    private readonly MSSQLDbContext _context;
+    private readonly AppDbContext _context;
 
-    public SongService(MSSQLDbContext context)
+    public SongService(AppDbContext context)
     {
         _context = context;
         
-        // Id, Band, Name, Album, ReleaseDate
-        // songs = new List<Song>
-        // {
-        //     new Song {Id = 1, Band = "Metallica", Name = "Turn the Page", Album = "Garage Inc.", ReleaseDate = 1998},
-        //     new Song {Id = 21, Band = "Megadeth", Name = "Tornado of Souls", Album = "Rust in Peace", ReleaseDate = 1990},
-        //     new Song {Id = 3, Band = "Camel", Name = "Stationary Traveller", Album = "Stationary Traveller", ReleaseDate = 1984},
-        //     new Song {Id = 4, Band = "W.A.S.P.", Name = "Miss You", Album = "Golgotha", ReleaseDate = 2015},
-        //     new Song {Id = 5, Band = "Porcupine Tree", Name = "Anesthetize", Album = "Fear of a Blank Planet", ReleaseDate = 1998},
-        //     new Song {Id = 6, Band = "Katatonia", Name = "July", Album = "", ReleaseDate = 2007},
-        //     new Song {Id = 7, Band = "Megadeth", Name = "Lucretia", Album = "Rust in Peace", ReleaseDate = 1990}
-        // };
     }
 
     public async Task<List<Song>> GetAll()
     {
-        List<Song> sortedSongs = songs.OrderBy(x => x.Band).ToList<Song>();
+        List<Song> sortedSongs = _context.Songs.OrderBy(x => x.Band).ToList<Song>();
         return sortedSongs;
     }
 
@@ -50,13 +38,13 @@ public class SongService : ISongService
             song.Album = "Single";
         }
             
-        songs.Add(song);
-        return songs;
+        _context.Songs.Add(song);
+        return _context.Songs.ToList();
     }
     
     public async Task<Song> Update(Song song)
     {
-        Song selectedSong = songs.FirstOrDefault(x => x.Id == song.Id);
+        Song selectedSong = _context.Songs.FirstOrDefault(x => x.Id == song.Id);
         
         if (selectedSong is null)
         {
@@ -66,25 +54,25 @@ public class SongService : ISongService
         selectedSong.Band = song.Band;
         selectedSong.Name = song.Name;
         selectedSong.Album = song.Album;
-        selectedSong.ReleaseDate = song.ReleaseDate;
+        selectedSong.ReleaseYear = song.ReleaseYear;
         
         return selectedSong;
     }
     
     public async Task<Song> Delete(int id)
     {
-        Song song = songs.FirstOrDefault(x => x.Id == id);
+        Song song = _context.Songs.FirstOrDefault(x => x.Id == id);
         if (song == null)
         {
             throw new KeyNotFoundException("There is no song with the given Id.");
         }
-        songs.Remove(song);
+        _context.Songs.Remove(song);
         return song;
     }
     
     public async Task<Song> Patch(int id, Song updatedFields)
     {
-        Song song = songs.FirstOrDefault(x => x.Id == id);
+        Song song = _context.Songs.FirstOrDefault(x => x.Id == id);
     
         if (song == null)
         {
@@ -106,9 +94,9 @@ public class SongService : ISongService
             song.Album = updatedFields.Album;
         }
     
-        if (updatedFields.ReleaseDate != 0)
+        if (updatedFields.ReleaseYear != 0)
         {
-            song.ReleaseDate = updatedFields.ReleaseDate;
+            song.ReleaseYear = updatedFields.ReleaseYear;
         }
     
         return song;
@@ -116,7 +104,7 @@ public class SongService : ISongService
     
     public async Task<List<Song>> ListByAlbum(string album)
     {
-        List<Song> listedSongs = songs.FindAll(x => x.Album == album).OrderBy(x => x.Id).ToList<Song>();
+        List<Song> listedSongs = _context.Songs.Where(x => x.Album == album).OrderBy(x => x.Id).ToList<Song>();
         return listedSongs;
     }
 

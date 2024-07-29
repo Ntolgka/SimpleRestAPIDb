@@ -33,7 +33,7 @@ public class SongValidator : AbstractValidator<Song>
             .MaximumLength(50)
             .WithMessage("Album of song must have a maximum of 50 characters.");
 
-        RuleFor(Song => Song.ReleaseDate).NotNull()
+        RuleFor(Song => Song.ReleaseYear).NotNull()
             .WithMessage("Song's release date cannot be null.")
             .GreaterThanOrEqualTo(1700)
             .WithMessage("Song's release date must be greater than or equal to 1700")

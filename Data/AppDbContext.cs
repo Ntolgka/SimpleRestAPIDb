@@ -3,9 +3,9 @@ using Week2_Assesment.Models;
 
 namespace Week2_Assessment.Data;
 
-public class MSSQLDbContext : DbContext
+public class AppDbContext : Microsoft.EntityFrameworkCore.DbContext
 {
-    public MSSQLDbContext(DbContextOptions<MSSQLDbContext> options) : base(options)
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
         
     }
