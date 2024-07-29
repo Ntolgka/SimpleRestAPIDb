@@ -10,11 +10,6 @@ public class SongValidator : AbstractValidator<Song>
 {
     public SongValidator()
     {
-        RuleFor(Song => Song.Id).NotNull()
-            .WithMessage("Song Id cannot be null.")
-            .GreaterThanOrEqualTo(1)
-            .WithMessage("Id must be greater than or equal to 1.");
-
         RuleFor(Song => Song.Name).NotNull()
             .WithMessage("Song Name cannot be null.")
             .MaximumLength(50)

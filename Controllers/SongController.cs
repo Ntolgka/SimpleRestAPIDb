@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Week2_Assesment.Interfaces;
 using Week2_Assesment.Models;
+using Week2_Assessment.Extensions;
 
 namespace Week2_Assesment.Controllers;
 
@@ -26,77 +27,51 @@ public class SongController : ControllerBase
     public async Task<IActionResult> GetById(int id)
     {
         var song = await _songService.GetByIdAsync(id);
-        if (song == null)
-        {
-            return NotFound("There is no song with the given id.");
-        }
-        return Ok(song);
+        
+        var isClassic = song.IsClassic();
+        return Ok(new 
+        { 
+            Song = song, 
+            IsClassic = isClassic 
+        });
+    }
+    
+    [HttpGet("classics")]
+    public async Task<IActionResult> GetClassics()
+    {
+        var songs = await _songService.GetAll();
+        var classicSongs = songs.Where(song => song.IsClassic()).ToList();
+        return Ok(classicSongs);
     }
 
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] Song song)
     {
-        if (song == null)
-        {
-            return BadRequest();
-        }
-        
-        try
-        {
-            var songs = await _songService.Create(song);
-            return Ok(songs);
-        }
-        catch (Exception)
-        {
-            return StatusCode(StatusCodes.Status500InternalServerError);
-        }
+        var songs = await _songService.Create(song);
+        return Ok(songs);
     }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, [FromBody] Song song)
     {
-        if (song == null || id != song.Id)
-        {
-            return BadRequest("Id cannot be changed.");
-        }
-
-        try
-        {
-            var updatedSong = await _songService.Update(song);
-            return Ok(updatedSong);
-        }
-        catch (KeyNotFoundException)
-        {
-            return NotFound();
-        }
+        var updatedSong = await _songService.Update(song);
+        return Ok(updatedSong);
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        try
-        {
-            var song = await _songService.Delete(id);
-            return Ok(song);
-        }
-        catch (KeyNotFoundException)
-        {
-            return NotFound();
-        }
+        var song = await _songService.Delete(id);
+        return Ok(song);
+        
     }
 
     [HttpPatch("{id}")]
     public async Task<IActionResult> Patch(int id, [FromBody] Song updatedFields)
     {
-        try
-        {
-            var updatedSong = await _songService.Patch(id, updatedFields);
-            return Ok(updatedSong);
-        }
-        catch (KeyNotFoundException)
-        {
-            return NotFound();
-        }
+        var updatedSong = await _songService.Patch(id, updatedFields);
+        return Ok(updatedSong);
+        
     }
 
     // For instance, try the endpoint: /api/Songs/ListByAlbum?album=Rust%20in%20Peace

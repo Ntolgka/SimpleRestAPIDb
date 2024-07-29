@@ -23,7 +23,13 @@ public class SongService : ISongService
 
     public async Task<Song> GetByIdAsync(int id)
     {
-        return await _context.Songs.FirstOrDefaultAsync(x => x.Id == id);
+        Song song = await _context.Songs.FirstOrDefaultAsync(x => x.Id == id);
+        if (song == null)
+        {
+            throw new KeyNotFoundException("There is no song with the given Id.");
+        }
+
+        return song;
     }
     
     public async Task<List<Song>> Create(Song song)
@@ -39,6 +45,7 @@ public class SongService : ISongService
         }
             
         _context.Songs.Add(song);
+        await _context.SaveChangesAsync();
         return _context.Songs.ToList();
     }
     
@@ -56,6 +63,8 @@ public class SongService : ISongService
         selectedSong.Album = song.Album;
         selectedSong.ReleaseYear = song.ReleaseYear;
         
+        await _context.SaveChangesAsync();
+        
         return selectedSong;
     }
     
@@ -67,6 +76,7 @@ public class SongService : ISongService
             throw new KeyNotFoundException("There is no song with the given Id.");
         }
         _context.Songs.Remove(song);
+        await _context.SaveChangesAsync();
         return song;
     }
     
@@ -98,6 +108,8 @@ public class SongService : ISongService
         {
             song.ReleaseYear = updatedFields.ReleaseYear;
         }
+        
+        await _context.SaveChangesAsync();
     
         return song;
     }
