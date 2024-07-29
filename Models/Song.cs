@@ -8,7 +8,7 @@ public class Song
 {
     [DisplayName("Song ID")]
     [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]       //Auto increment Id.
     public int Id { get; set; }
     public string Band { get; set; }
     [DisplayName("Song Name")]

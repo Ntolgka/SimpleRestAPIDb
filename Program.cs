@@ -44,6 +44,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<RequestResponseLoggerMiddleware>();
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 

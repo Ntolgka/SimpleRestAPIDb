@@ -8,7 +8,7 @@ public class User
 {
     [DisplayName("User ID")]
     [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]           //Auto increment Id.
     public int Id { get; set; }
     public string Username { get; set; }
     public string Password { get; set; }    
