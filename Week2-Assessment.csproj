@@ -31,7 +31,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Helpers\" />
+      <Folder Include="Attribute\" />
       <Folder Include="Logs\" />
       <Folder Include="Migrations\" />
     </ItemGroup>

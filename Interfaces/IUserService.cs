@@ -10,4 +10,5 @@ public interface IUserService
     Task<User> Update(User User);
     Task<User> Delete(int id);
     Task<User> Patch(int id, User updatedFields);
+    Task<User> Authenticate(string username, string password);
 }

@@ -2,6 +2,7 @@
 using Week2_Assesment.Interfaces;
 using Week2_Assesment.Models;
 using Week2_Assessment.Data;
+using Week2_Assessment.Helpers;
 
 namespace Week2_Assesment.Services;
 
@@ -32,30 +33,33 @@ public class UserService : IUserService
         return User;
     }
     
-    public async Task<List<User>> Create(User User)
+    public async Task<List<User>> Create(User user)
     {
-        if (User == null)
+        if (user == null)
         {
-            throw new ArgumentNullException(nameof(User));
+            throw new ArgumentNullException(nameof(user));
         }
             
-        _context.Users.Add(User);
+        user.Password = CryptoHelper.CreateMD5(user.Password);
+
+        _context.Users.Add(user);
         await _context.SaveChangesAsync();
-        return _context.Users.ToList();
+        
+        return await _context.Users.ToListAsync();
     }
     
-    public async Task<User> Update(User User)
+    public async Task<User> Update(User user)
     {
-        User selectedUser = _context.Users.FirstOrDefault(x => x.Id == User.Id);
+        User selectedUser = _context.Users.FirstOrDefault(x => x.Id == user.Id);
         
         if (selectedUser is null)
         {
             throw new KeyNotFoundException("There is no User with the given Id.");
         }
         
-        selectedUser.Id = User.Id;
-        selectedUser.Username = User.Username;
-        selectedUser.Password = User.Password;
+        selectedUser.Id = user.Id;
+        selectedUser.Username = user.Username;
+        selectedUser.Password = user.Password;
         
         await _context.SaveChangesAsync();
         
@@ -78,37 +82,41 @@ public class UserService : IUserService
     
     public async Task<User> Patch(int id, User updatedFields)
     {
-        User User = _context.Users.FirstOrDefault(x => x.Id == id);
+        User user = _context.Users.FirstOrDefault(x => x.Id == id);
     
-        if (User == null)
+        if (user == null)
         {
             throw new KeyNotFoundException("There is no User with the given Id.");
         }
 
         if (updatedFields.Id != null)
         {
-            User.Id = updatedFields.Id;
+            user.Id = updatedFields.Id;
         }
     
         if (!string.IsNullOrEmpty(updatedFields.Username))
         {
-            User.Username = updatedFields.Username;
+            user.Username = updatedFields.Username;
         }
     
         if (!string.IsNullOrEmpty(updatedFields.Password))
         {
-            User.Password = updatedFields.Password;
+            user.Password = updatedFields.Password;
         }
         
         await _context.SaveChangesAsync();
     
-        return User;
+        return user;
     }
     
-    public async Task<List<User>> ListByName(string name)
+    public async Task<User> Authenticate(string username, string password)
     {
-        List<User> listedUsers = _context.Users.Where(x => x.Username == name).OrderBy(x => x.Id).ToList<User>();
-        return listedUsers;
+        var user = _context.Users.FirstOrDefault(u => u.Username == username);
+        if (user != null && user.Password == CryptoHelper.CreateMD5(password))
+        {
+            return user;
+        }
+        return null;
     }
     
 }
