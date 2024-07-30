@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Week2_Assesment.Models;
+using Week2_Assignment.Models;
 
-namespace Week2_Assessment.Configuration;
+namespace Week2_Assignment.Configuration;
 
 public class UserConfiguration : IEntityTypeConfiguration<User>
 {

@@ -1,4 +1,4 @@
-﻿namespace Week2_Assessment.Helpers;
+﻿namespace Week2_Assignment.Helpers;
 
 public static class CryptoHelper
 {

@@ -1,5 +1,4 @@
-﻿using Serilog;
-namespace Week2_Assessment.Middleware;
+﻿namespace Week2_Assignment.Middleware;
 
 public class RequestResponseLoggerMiddleware
 {

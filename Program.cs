@@ -1,12 +1,12 @@
-using Week2_Assesment.Interfaces;
-using Week2_Assesment.Services;
+using Week2_Assignment.Interfaces;
+using Week2_Assignment.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
-using Week2_Assesment.Validators;
-using Week2_Assessment.Data;
-using Week2_Assessment.Middleware;
+using Week2_Assignment.Validators;
+using Week2_Assignment.Data;
+using Week2_Assignment.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 

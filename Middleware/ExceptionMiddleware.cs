@@ -1,7 +1,7 @@
 ﻿using System.Net;
-using Week2_Assessment.Schema;
+using Week2_Assignment.Schema;
 
-namespace Week2_Assessment.Middleware;
+namespace Week2_Assignment.Middleware;
 
 // I could merge ExceptionMiddleware and RequestResponseLoggerMiddleware but, I separated them because they were 2 different parts of the assessment.
 public class ExceptionMiddleware

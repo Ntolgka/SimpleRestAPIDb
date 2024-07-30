@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Week2-Assessment", "Week2-Assessment.csproj", "{13CA8373-BAAE-4F63-8A0B-290692639740}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Week2-Assignment", "Week2-Assignment.csproj", "{13CA8373-BAAE-4F63-8A0B-290692639740}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

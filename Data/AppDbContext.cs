@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Week2_Assesment.Models;
+using Week2_Assignment.Models;
 
-namespace Week2_Assessment.Data;
+namespace Week2_Assignment.Data;
 
 public class AppDbContext : Microsoft.EntityFrameworkCore.DbContext
 {

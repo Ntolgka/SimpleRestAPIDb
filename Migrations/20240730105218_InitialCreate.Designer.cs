@@ -4,15 +4,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Week2_Assessment.Data;
+using Week2_Assignment.Data;
 
 #nullable disable
 
 namespace Week2_Assessment.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240729183541_AddUser")]
-    partial class AddUser
+    [Migration("20240730105218_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace Week2_Assessment.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Week2_Assesment.Models.Song", b =>
+            modelBuilder.Entity("Week2_Assignment.Models.Song", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -52,7 +52,7 @@ namespace Week2_Assessment.Migrations
                     b.ToTable("Songs");
                 });
 
-            modelBuilder.Entity("Week2_Assesment.Models.User", b =>
+            modelBuilder.Entity("Week2_Assignment.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Week2_Assessment.Data;
+using Week2_Assignment.Data;
 
 #nullable disable
 
@@ -21,7 +21,7 @@ namespace Week2_Assessment.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Week2_Assesment.Models.Song", b =>
+            modelBuilder.Entity("Week2_Assignment.Models.Song", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -49,7 +49,7 @@ namespace Week2_Assessment.Migrations
                     b.ToTable("Songs");
                 });
 
-            modelBuilder.Entity("Week2_Assesment.Models.User", b =>
+            modelBuilder.Entity("Week2_Assignment.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Week2_Assesment.Models;
+namespace Week2_Assignment.Models;
 
 public class User
 {

@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Week2_Assesment.Models;
+using Week2_Assignment.Models;
 
-namespace Week2_Assesment.Validators;
+namespace Week2_Assignment.Validators;
 
 public class UserValidator : AbstractValidator<User>
 {

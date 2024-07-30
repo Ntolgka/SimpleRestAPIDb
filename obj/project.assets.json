@@ -5034,9 +5034,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\tolga\\RiderProjects\\SimpleRestAPIDb\\Week2-Assessment.csproj",
-      "projectName": "Week2-Assessment",
-      "projectPath": "C:\\Users\\tolga\\RiderProjects\\SimpleRestAPIDb\\Week2-Assessment.csproj",
+      "projectUniqueName": "C:\\Users\\tolga\\RiderProjects\\SimpleRestAPIDb\\Week2-Assignment.csproj",
+      "projectName": "Week2-Assignment",
+      "projectPath": "C:\\Users\\tolga\\RiderProjects\\SimpleRestAPIDb\\Week2-Assignment.csproj",
       "packagesPath": "C:\\Users\\tolga\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\tolga\\RiderProjects\\SimpleRestAPIDb\\obj\\",
       "projectStyle": "PackageReference",

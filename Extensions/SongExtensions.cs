@@ -1,6 +1,6 @@
-﻿using Week2_Assesment.Models;
+﻿using Week2_Assignment.Models;
 
-namespace Week2_Assessment.Extensions;
+namespace Week2_Assignment.Extensions;
 
 public static class SongExtensions
 {

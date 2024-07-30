@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Week2_Assesment.Interfaces;
-using Week2_Assesment.Models;
+using Week2_Assignment.Interfaces;
+using Week2_Assignment.Models;
 
-namespace Week2_Assesment.Controllers;
+namespace Week2_Assignment.Controllers;
 
 [ApiController]
 [Route("api/[controller]s")]

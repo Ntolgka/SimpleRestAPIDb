@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace Week2_Assessment.Schema;
+namespace Week2_Assignment.Schema;
 
 public class ErrorDetails
 {

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "thrv4i6vj66Gzz4d7zMY+eB+zO6TkaXayTIB5RLnJv0qjAaMcXV8jm2GzGQrAqqflFI7i7BL2QioHGNjXWO8VQ==",
+  "dgSpecHash": "NdP1g0jKOgiR+6/tmtEeQmC127e2h54kT5PYRGJkR5PflPM2gg771wjVItpl81YK7qxZoi679ZisRBhrsdeZiQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\tolga\\RiderProjects\\SimpleRestAPIDb\\Week2-Assessment.csproj",
+  "projectFilePath": "C:\\Users\\tolga\\RiderProjects\\SimpleRestAPIDb\\Week2-Assignment.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\tolga\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\tolga\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

@@ -1,6 +1,6 @@
-﻿using Week2_Assesment.Models;
+﻿using Week2_Assignment.Models;
 
-namespace Week2_Assesment.Interfaces;
+namespace Week2_Assignment.Interfaces;
 
 public interface ISongService
 {

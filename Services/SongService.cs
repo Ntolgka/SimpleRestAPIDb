@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Week2_Assesment.Interfaces;
-using Week2_Assesment.Models;
-using Week2_Assessment.Data;
+using Week2_Assignment.Interfaces;
+using Week2_Assignment.Models;
+using Week2_Assignment.Data;
 
-namespace Week2_Assesment.Services;
+namespace Week2_Assignment.Services;
 
 public class SongService : ISongService
 {

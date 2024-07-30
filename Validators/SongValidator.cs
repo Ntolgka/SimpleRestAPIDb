@@ -1,7 +1,7 @@
-﻿using Week2_Assesment.Models;
+﻿using Week2_Assignment.Models;
 using FluentValidation;
 
-namespace Week2_Assesment.Validators;
+namespace Week2_Assignment.Validators;
 
 public class SongValidator : AbstractValidator<Song>
 {
@@ -28,4 +28,6 @@ public class SongValidator : AbstractValidator<Song>
             .LessThanOrEqualTo(2024)
             .WithMessage("Song's release date must be less than or equal to 2024");
     }
+    
+    
 }
