@@ -1,6 +1,6 @@
-﻿namespace Week2_Assignment.Schema.Songs.Requests;
+﻿namespace Week2_Assignment.Schema.Songs.Responses;
 
-public class UserUpdateRequest
+public class UserLoginResponse
 {
     public int Id { get; set; }
     public string Username { get; set; }

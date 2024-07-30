@@ -2,6 +2,7 @@
 
 public class SongUpdateRequest
 {
+    public int Id { get; set; }
     public string Band { get; set; }
     public string Name { get; set; }
     public string Album { get; set; }

@@ -1,3 +1,4 @@
+using AutoMapper;
 using Week2_Assignment.Interfaces;
 using Week2_Assignment.Services;
 using FluentValidation;
@@ -6,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Week2_Assignment.Validators;
 using Week2_Assignment.Data;
+using Week2_Assignment.Mapper;
 using Week2_Assignment.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +21,13 @@ Log.Logger = new LoggerConfiguration()
 builder.Host.UseSerilog();
 
 builder.Services.AddControllers();
+
+//Mapper
+var config = new MapperConfiguration(cfg =>
+{
+    cfg.AddProfile(new MapperConfig());
+});
+builder.Services.AddSingleton(config.CreateMapper());
 
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();

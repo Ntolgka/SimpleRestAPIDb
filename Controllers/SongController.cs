@@ -2,6 +2,7 @@
 using Week2_Assignment.Interfaces;
 using Week2_Assignment.Models;
 using Week2_Assignment.Extensions;
+using Week2_Assignment.Schema.Songs.Requests;
 
 namespace Week2_Assignment.Controllers;
 
@@ -26,35 +27,28 @@ public class SongController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
-        var song = await _songService.GetByIdAsync(id);
-        
-        var isClassic = song.IsClassic();
-        return Ok(new 
-        { 
-            Song = song, 
-            IsClassic = isClassic 
-        });
+        var songResponse = await _songService.GetByIdAsync(id);
+        return Ok(songResponse);
     }
     
     [HttpGet("classics")]
     public async Task<IActionResult> GetClassics()
     {
-        var songs = await _songService.GetAll();
-        var classicSongs = songs.Where(song => song.IsClassic()).ToList();
+        var classicSongs = await _songService.GetClassics();
         return Ok(classicSongs);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] Song song)
+    public async Task<IActionResult> Create([FromBody] SongCreateRequest request)
     {
-        var songs = await _songService.Create(song);
+        var songs = await _songService.Create(request);
         return Ok(songs);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, [FromBody] Song song)
+    public async Task<IActionResult> Update(int id, [FromBody] SongUpdateRequest request)
     {
-        var updatedSong = await _songService.Update(song);
+        var updatedSong = await _songService.Update(request);
         return Ok(updatedSong);
     }
 

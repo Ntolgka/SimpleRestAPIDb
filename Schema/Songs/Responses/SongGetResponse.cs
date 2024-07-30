@@ -7,4 +7,5 @@ public class SongGetResponse
     public string Name { get; set; }
     public string Album { get; set; }
     public int ReleaseYear { get; set; }
+    public bool IsClassic { get; set; }
 }

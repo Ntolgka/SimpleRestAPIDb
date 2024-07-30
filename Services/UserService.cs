@@ -1,122 +1,112 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Week2_Assignment.Interfaces;
 using Week2_Assignment.Models;
 using Week2_Assignment.Data;
 using Week2_Assignment.Helpers;
+using Week2_Assignment.Schema.Songs.Requests;
+using Week2_Assignment.Schema.Songs.Responses;
 
 namespace Week2_Assignment.Services;
 
 public class UserService : IUserService
-{
-    private readonly AppDbContext _context;
-    
-    public  UserService(AppDbContext context)
     {
-        _context = context;
-    }
-    
-    
-    public async Task<List<User>> GetAll()
-    {
-        List<User> sortedUsers = _context.Users.OrderBy(x => x.Id).ToList<User>();
-        return sortedUsers;
-    }
+        private readonly AppDbContext _context;
+        private readonly IMapper _mapper;
 
-    public async Task<User> GetByIdAsync(int id)
-    {
-        User User = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
-        if (User == null)
+        public UserService(AppDbContext context, IMapper mapper)
         {
-            throw new KeyNotFoundException("There is no User with the given Id.");
+            _context = context;
+            _mapper = mapper;
         }
 
-        return User;
-    }
-    
-    public async Task<List<User>> Create(User user)
-    {
-        if (user == null)
+        public async Task<List<UserGetResponse>> GetAll()
         {
-            throw new ArgumentNullException(nameof(user));
-        }
-            
-        user.Password = CryptoHelper.CreateMD5(user.Password);
-
-        _context.Users.Add(user);
-        await _context.SaveChangesAsync();
-        
-        return await _context.Users.ToListAsync();
-    }
-    
-    public async Task<User> Update(User user)
-    {
-        User selectedUser = _context.Users.FirstOrDefault(x => x.Id == user.Id);
-        
-        if (selectedUser is null)
-        {
-            throw new KeyNotFoundException("There is no User with the given Id.");
-        }
-        
-        selectedUser.Id = user.Id;
-        selectedUser.Username = user.Username;
-        selectedUser.Password = user.Password;
-        
-        await _context.SaveChangesAsync();
-        
-        return selectedUser;
-    }
-    
-    public async Task<User> Delete(int id)
-    {
-        User user = _context.Users.FirstOrDefault(x => x.Id == id);
-        if (user == null)
-        {
-            throw new KeyNotFoundException("There is no User with the given Id.");
-        }
-        
-        _context.Users.Remove(user);
-        await _context.SaveChangesAsync();
-        
-        return user;
-    }
-    
-    public async Task<User> Patch(int id, User updatedFields)
-    {
-        User user = _context.Users.FirstOrDefault(x => x.Id == id);
-    
-        if (user == null)
-        {
-            throw new KeyNotFoundException("There is no User with the given Id.");
+            var users = await _context.Users.OrderBy(x => x.Id).ToListAsync();
+            return _mapper.Map<List<UserGetResponse>>(users);
         }
 
-        if (updatedFields.Id != null)
+        public async Task<UserGetResponse> GetByIdAsync(int id)
         {
-            user.Id = updatedFields.Id;
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            if (user == null)
+            {
+                throw new KeyNotFoundException("There is no User with the given Id.");
+            }
+
+            return _mapper.Map<UserGetResponse>(user);
         }
-    
-        if (!string.IsNullOrEmpty(updatedFields.Username))
+
+        public async Task<List<UserGetResponse>> Create(UserCreateRequest userCreateRequest)
         {
-            user.Username = updatedFields.Username;
+            if (userCreateRequest == null)
+            {
+                throw new ArgumentNullException(nameof(userCreateRequest));
+            }
+
+            var user = _mapper.Map<User>(userCreateRequest);
+            user.Password = CryptoHelper.CreateMD5(user.Password); // Hash the password
+
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+            var users = await _context.Users.ToListAsync();
+            return _mapper.Map<List<UserGetResponse>>(users);
         }
-    
-        if (!string.IsNullOrEmpty(updatedFields.Password))
+
+        public async Task<UserGetResponse> Update(UserUpdateRequest userUpdateRequest)
         {
-            user.Password = updatedFields.Password;
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == userUpdateRequest.Id);
+            if (user == null)
+            {
+                throw new KeyNotFoundException("There is no User with the given Id.");
+            }
+
+            _mapper.Map(userUpdateRequest, user);
+            user.Password = CryptoHelper.CreateMD5(user.Password); // Hash the password
+
+            await _context.SaveChangesAsync();
+
+            return _mapper.Map<UserGetResponse>(user);
         }
-        
-        await _context.SaveChangesAsync();
-    
-        return user;
+
+        public async Task<UserGetResponse> Delete(int id)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            if (user == null)
+            {
+                throw new KeyNotFoundException("There is no User with the given Id.");
+            }
+
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+
+            return _mapper.Map<UserGetResponse>(user);
+        }
+
+        public async Task<UserGetResponse> Patch(int id, UserUpdateRequest updatedFields)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            if (user == null)
+            {
+                throw new KeyNotFoundException("There is no User with the given Id.");
+            }
+
+            _mapper.Map(updatedFields, user);
+            user.Password = CryptoHelper.CreateMD5(user.Password); // Hash the password
+
+            await _context.SaveChangesAsync();
+
+            return _mapper.Map<UserGetResponse>(user);
+        }
+
+        public async Task<UserGetResponse> Authenticate(string username, string password)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+            if (user != null && user.Password == CryptoHelper.CreateMD5(password))
+            {
+                return _mapper.Map<UserGetResponse>(user);
+            }
+            return null;
+        }
     }
-    
-    public async Task<User> Authenticate(string username, string password)
-    {
-        var user = _context.Users.FirstOrDefault(u => u.Username == username);
-        if (user != null && user.Password == CryptoHelper.CreateMD5(password))
-        {
-            return user;
-        }
-        return null;
-    }
-    
-}
